@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Oven Ready</title>
+
+
+ 
+<style>
+#container {
+	margin: 0px auto;
+	width: 500px;
+	height: 375px;
+	border: 10px #333 solid;
+}
+
+#canvasContainer {
+	margin: 100px auto;
+	width: 500px;
+	height: 375px;
+	border: 10px #333 solid;
+}
+#videoElement {
+	width: 500px;
+	height: 375px;
+	background-color: #666;
+}
+
+#snapImage {
+	width: 500px;
+	height: 375px;
+	background-color: #666;
+}
+</style>
+</head>
+
+<body>
+
+
+<h3> Oven On or Off?</h3>
+<h2 id="ovenOffOrOn"></h2>
+
+<audio id="onvenOffAudio">
+    <!-- <source src="oven_on.mp3" type="audio/mpeg"> -->
+    <source src="static/oven_off.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="onvenOnAudio">
+        <source src="static/oven_on.mp3" type="audio/mpeg">
+        <!-- <source src="oven_off.mp3" type="audio/mpeg"> -->
+</audio>
+
+<button type="button" onclick="document.getElementById('onvenOffAudio').play()">
+Oven Off Audio
+</button>
+
+<button type="button" onclick="document.getElementById('onvenOnAudio').play()">
+Oven On Audio
+</button>
+
+
+<div id="container">
+	<video autoplay="true" id="videoElement"></video>
+</div>
+
+<div id="canvasContainer">
+    <img id="snapImage" src="">
+    <!-- <canvas style="display:none;"></canvas> -->
+</div>
+
+<button id="snapButton" onclick="snap_image()">Take Picture</button>
+
+
+<script>
+  var video = document.querySelector("#videoElement");
+
+  if (navigator.mediaDevices.getUserMedia) {
+    navigator.mediaDevices.getUserMedia({ video: true, facingMode: 'environment' })
+      .then(function (stream) {
+        video.srcObject = stream;
+      })
+      .catch(function (err0r) {
+        console.log("Something went wrong!");
+      });
+  }
+
+  function stop(e) {
+  var stream = video.srcObject;
+  var tracks = stream.getTracks();
+
+  for (var i = 0; i < tracks.length; i++) {
+    var track = tracks[i];
+    track.stop();
+  }
+
+  video.srcObject = null;
+}
+
+// const captureVideoButton =
+//   document.querySelector('#snapButton');
+const screenshotButton = document.querySelector('#snapButton');
+const img = document.querySelector('#snapImage');
+// const video1 = document.querySelector('#screenshot video');
+
+const canvas = document.createElement('canvas');
+
+// captureVideoButton.onclick = function() {
+//   navigator.mediaDevices.getUserMedia(constraints).
+//     then(handleSuccess).catch(handleError);
+// };
+
+screenshotButton.onclick = video.onclick = function() {
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    canvas.getContext('2d').drawImage(video, 0, 0);
+    // Other browsers will fall back to image/png
+    //   img.src = canvas.toDataURL('image/webp');
+    var imgURL = canvas.toDataURL();
+    img.src = imgURL
+    // console.log(imgURL);
+
+    // postAjax("http://127.0.0.1:5000/takepic", {"data": imgURL}, transferWorked)
+    sendBase64ToServer("", imgURL);
+
+    
+};
+
+
+var sendBase64ToServer = function(name, base64){
+    var httpPost = new XMLHttpRequest();
+    var path = "takepic";
+    // var path = "http://127.0.0.1:5000/takepic";
+    var data = JSON.stringify({image: base64});
+
+    // listen for and deal with returned data from server
+    httpPost.onreadystatechange = function(err) {
+        if (httpPost.readyState == 4 && httpPost.status == 200){
+            var returned_data = JSON.parse(httpPost.response);
+            document.getElementById("ovenOffOrOn").innerHTML = returned_data.prediction;
+            if (returned_data.prediction == "on"){
+                console.log("audio on message")
+                document.getElementById('onvenOnAudio').play()
+            } else {
+                console.log("audio off message")
+                document.getElementById('onvenOffAudio').play()
+            }
+            console.log(httpPost.response);
+            console.log(returned_data.prediction)
+        } else {
+            console.log(err);
+        }
+    };
+
+    // Open Post request
+    httpPost.open("POST", path, true);
+
+    // Set the content type of the request to json since that's what's being sent
+    httpPost.setRequestHeader('Content-Type', 'application/json');
+    
+    // Send data to server
+    httpPost.send(data);
+};
+
+
+
+
+function transferWorked(rtn){
+    console.log("transfer worked");
+};
+//Function called on pressing a html button
+// function takePic() {
+
+// ctx.drawImage(video, 0, 0, canvas.width, canvas.height);//video is the video element in html which is recieving live data from webcam
+
+// var imgURL = canvas.toDataURL();
+// console.log(imgURL);
+// $.ajax({
+//   type: "POST",
+//   url: "http://127.0.0.1:5000/takepic", //I have doubt about this url, not sure if something specific must come before "/take_pic"
+//   data: imgURL,
+//   success: function(data) {
+//     if (data.success) {
+//       alert('Your file was successfully uploaded!');
+//     } else {
+//       alert('There was an error uploading your file!');
+//     }
+//   },
+//   error: function(data) {
+//     alert('There was an error uploading your file!');
+//   }
+// }).done(function() {
+//   console.log("Sent");
+// });
+
+// }
+</script>
+</body>
+</html>

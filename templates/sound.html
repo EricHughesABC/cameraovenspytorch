@@ -1,0 +1,24 @@
+
+
+
+</head>
+<body>
+    <audio id="onvenOffAudio">
+        <!-- <source src="oven_on.mp3" type="audio/mpeg"> -->
+        <source src="../static/oven_off.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="onvenOnAudio">
+            <source src="../static/oven_on.mp3" type="audio/mpeg">
+            <!-- <source src="oven_off.mp3" type="audio/mpeg"> -->
+    </audio>
+        
+    <button type="button"
+            onclick="document.getElementById('onvenOffAudio').play()">
+            Oven Off Audio
+    </button>
+
+    <button type="button" onclick="document.getElementById('onvenOnAudio').play()">
+            Oven On Audio
+    </button>
+</body>
+</html>
