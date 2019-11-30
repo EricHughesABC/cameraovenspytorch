@@ -2,6 +2,6 @@ Flask==1.1.1
 numpy==1.17.3
 Pillow==6.2.1
 gunicorn
-torch==1.3.1+cpu 
-torchvision==0.4.2+cpu
+torchvision_nightly
+-f https://download.pytorch.org/whl/nightly/cpu/torch_nightly.html
 opencv-python-headless
