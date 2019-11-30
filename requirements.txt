@@ -2,8 +2,6 @@ Flask==1.1.1
 numpy==1.17.3
 Pillow==6.2.1
 gunicorn
-
-https://download.pytorch.org/whl/torch_stable.html
 torch==1.3.1+cpu 
 torchvision==0.4.2+cpu
 opencv-python-headless
