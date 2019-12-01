@@ -75,7 +75,8 @@ Oven On Audio
   var video = document.querySelector("#videoElement");
 
   if (navigator.mediaDevices.getUserMedia) {
-    navigator.mediaDevices.getUserMedia({video: {facingMode: {exact: "environment"}}})
+    // navigator.mediaDevices.getUserMedia({video: {facingMode: {exact: "environment"}}})
+    navigator.mediaDevices.getUserMedia({video: {facingMode:  "environment"}})
       .then(function (stream) {
         video.srcObject = stream;
       })

@@ -18,6 +18,7 @@ app = Flask(__name__)
 # url_for('static', filename='liz.pt')
 
 # model = torch.load("/home/eric/Dropbox/projects/programming/2019/Python_progs/pytorch/oven_project/liz.pt");
+global model
 model = torch.load('static/liz.pt')
 model.eval()
 class_names = ['off', 'on', 'undefined']
@@ -45,9 +46,12 @@ def transform_image(image_bytes):
                                             [0.485, 0.456, 0.406],
                                             [0.229, 0.224, 0.225])])
     image = Image.open(io.BytesIO(image_bytes))
+    image = image.rotate(90) # degrees counter-clockwise
+    # image.save("rotated.jpg", "JPEG")
     return my_transforms(image).unsqueeze(0)
 
 def get_prediction(image_bytes):
+    global model
     tensor = transform_image(image_bytes=image_bytes)
     outputs = model.forward(tensor)
   
@@ -75,10 +79,26 @@ def get_prediction(image_bytes):
 
 
 
-@app.route('/', methods=['GET'])
-@app.route('/index', methods=['GET'])
+@app.route('/', methods=['GET','POST'])
+@app.route('/index', methods=['GET','POST'])
 def index():
+    global model
     if request.method == 'GET':
+        return render_template('opening_page_slides_submit.html')
+    else:
+        print("request.form['action']")
+        print(request.form['action'])
+
+        if request.form['action'] == "liz":
+            model = torch.load('static/liz.pt')
+            model.eval()
+        elif request.form['action'] == "tom":
+            model = torch.load('static/tom.pt')
+            model.eval()
+        elif request.form['action'] == "eric":
+            model = torch.load('static/eric.pt')
+            model.eval()
+       
         return render_template('index.html')
 
 
