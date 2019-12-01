@@ -1,8 +1,8 @@
 # camera ovens pytorch
 
-simple app to check if an oven is on or off the long term intention is to see if it would be useful for partially sighted people like my mom
+simple app to check if an oven is on or off. The long term intention is to see if it would be useful for partially sighted people like my mom
 
-A neural network is traned using pytorch and the network is presented as a Flask app.
+A neural network is trained using pytorch and the network is presented as a Flask app.
 
 The neural network is specific to a single oven
 
