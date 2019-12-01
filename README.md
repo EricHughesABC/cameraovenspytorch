@@ -29,3 +29,10 @@ There are plenty of things still to do.
 - allow a user to load images of their own oven in on off position so that a new model can be trained and added to the system
 - add technical documentation so that others can deploy it to Heroku and train a model.
 - add documentation 
+
+<img src="oven_on_0404.jpg" alt="oven on" width="200" data-rotate="90"/>
+
+<img src="oven_off_0381.jpg" alt="oven off" width="200"/>
+
+
+
