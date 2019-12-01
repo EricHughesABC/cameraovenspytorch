@@ -1,8 +1,9 @@
 # oven ready
 
-## key words: pytorch, flask, camera, heroku, transfer learning, convolutional neural network
+## key words: 
+#### pytorch, flask, camera, heroku, transfer learning, convolutional neural network
 
-simple app to check if an oven is on or off. The long term intention is to see if it would be useful for partially sighted people like my mom
+A simple app to check if an oven is on or off. The long term intention is to see if it would be useful for partially sighted people.
 
 A neural network is trained using pytorch and the network is presented as a Flask app.
 
