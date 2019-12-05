@@ -60,12 +60,17 @@ def get_prediction(image_bytes):
     vals, preds = torch.max(outputs, 1)
     print(preds, vals, outputs.detach().numpy())
     aaa = outputs.detach().numpy()
-    
-    if aaa[0]<0 and aaa[0]<0:
-        prediction = class_names[-1]
-    else:
-        prediction = class_names[preds[0]]
 
+    print("aaa", aaa)
+    print("aaa[0]", aaa[0])
+    print("aaa[1]", aaa[1])
+    
+    # if aaa[0]<0 and aaa[1]<0:
+    #     prediction = class_names[-1]
+    # else:
+    #     prediction = class_names[preds[0]]
+    
+    prediction = class_names[preds[0]]
     print(aaa.shape,aaa)
     print("preds[0]", preds[0])
     print("class_names[preds[0]]",class_names[preds[0]])
