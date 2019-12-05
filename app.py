@@ -47,6 +47,9 @@ def transform_image(image_bytes):
                                             [0.229, 0.224, 0.225])])
     image = Image.open(io.BytesIO(image_bytes))
     image = image.rotate(90) # degrees counter-clockwise
+    print(dir(image))
+    print("type(image)", type(image))
+    print("image.size", image.size)
     # image.save("rotated.jpg", "JPEG")
     return my_transforms(image).unsqueeze(0)
 

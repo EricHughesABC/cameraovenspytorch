@@ -34,5 +34,17 @@ There are plenty of things still to do.
 
 <img src="oven_off_0381.jpg" alt="oven off" width="200"/>
 
+### Flask commands for running locally
+
+- FLASK_ENV=development FLASK_APP=app.py flask run
+
+#### Heroku commands
+
+- heroku login
+- git push heroku master
+- heroku local
+- heroku logs --tail
+
+
 
 
