@@ -21,7 +21,7 @@ app = Flask(__name__)
 global model
 model = torch.load('static/liz.pt')
 model.eval()
-class_names = ['off', 'on', 'undefined']
+class_names = ['off', 'on', 'unsure']
 
 ## read in validation file names
 
@@ -60,12 +60,17 @@ def get_prediction(image_bytes):
     vals, preds = torch.max(outputs, 1)
     print(preds, vals, outputs.detach().numpy())
     aaa = outputs.detach().numpy()
+    
+    if aaa[0]<0 and aaa[0]<0:
+        prediction = class_names[-1]
+    else:
+        prediction = class_names[preds[0]]
 
     print(aaa.shape,aaa)
     print("preds[0]", preds[0])
     print("class_names[preds[0]]",class_names[preds[0]])
     
-    prediction = class_names[preds[0]]
+    # prediction = class_names[preds[0]]
     print("prediction", prediction)
 
     return({'prediction':prediction})
