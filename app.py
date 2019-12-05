@@ -115,6 +115,9 @@ def index():
         elif request.form['action'] == "eric":
             model = torch.load('static/eric.pt')
             model.eval()
+        elif request.form['action'] == "pascal":
+            model = torch.load('static/pascal.pt')
+            model.eval()
        
         return render_template('index.html')
 
