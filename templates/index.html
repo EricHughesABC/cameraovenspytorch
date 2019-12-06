@@ -83,9 +83,28 @@
 <script>
   var video = document.querySelector("#videoElement");
 
+  var videoConfig = {
+    audio: false,
+    video: {
+      facingMode:  "environment",
+      width: {
+        min: 160,
+        ideal: 256,
+        max: 640
+      },
+      height: {
+        min: 240,
+        ideal: 256,
+        max: 480
+      }
+
+    }
+  };
+
+
   if (navigator.mediaDevices.getUserMedia) {
     // navigator.mediaDevices.getUserMedia({video: {facingMode: {exact: "environment"}}})
-    navigator.mediaDevices.getUserMedia({video: {facingMode:  "environment"}})
+    navigator.mediaDevices.getUserMedia(videoConfig)
       .then(function (stream) {
         video.srcObject = stream;
       })
@@ -128,6 +147,10 @@ video.onclick = function() {
     //   img.src = canvas.toDataURL('image/webp');
     var imgURL = canvas.toDataURL();
     img.src = imgURL
+
+    console.log( "video.videoWidth", video.videoWidth)
+    console.log( "video.videoHeight", video.videoHeight)
+
     // console.log(imgURL);
 
     // postAjax("http://127.0.0.1:5000/takepic", {"data": imgURL}, transferWorked)

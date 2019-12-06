@@ -132,7 +132,10 @@ def disp_pic():
   
     hdr, encoded_data = request.json['image'].split(',')
     nparr = np.fromstring(base64.standard_b64decode(encoded_data), np.uint8)
+
+    print("nparr.shape", nparr.shape)
     img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+    print("img.size", img.size)
 
     # encode
     is_success, buffer = cv2.imencode(".jpg", img)
