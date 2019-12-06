@@ -107,15 +107,19 @@ def index():
         print(request.form['action'])
 
         if request.form['action'] == "liz":
+            print("model = liz")
             model = torch.load('static/liz.pt')
             model.eval()
         elif request.form['action'] == "tom":
+            print("model = tom")
             model = torch.load('static/tom.pt')
             model.eval()
         elif request.form['action'] == "eric":
+            print("model = eric")
             model = torch.load('static/eric.pt')
             model.eval()
         elif request.form['action'] == "pascal":
+            print("model = pascal")
             model = torch.load('static/pascal.pt')
             model.eval()
        

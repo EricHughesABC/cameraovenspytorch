@@ -1,74 +1,83 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
+<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <title>Oven Ready</title>
 
 
- 
 <style>
-#container {
-	margin: 0px auto;
-	width: 500px;
-	height: 375px;
-	border: 10px #333 solid;
-}
+    h1,h2,
+    h3 {
+      text-align: center;
+    }
+    
+    
+    .video-container {
+        /*background-color: #666;*/
+        max-width: 800px;
+        text-align: center;
+    }
+    
+    .image-container {
+        max-width: 800px;
+        /*background-color: #666;*/
+        text-align: center;
+    }
+    
+    .video-image {
+        width: 500px;
+        height: 375px;
+        border: 10px #333 solid;
+        background-color: #666;
+        display: inline-block;
+    }
+    
+    .static-image {
+        width: 500px;
+        height: 375px;
+        border: 10px #333 solid;
+        background-color: #666;
+        display: inline-block;
+    }
+    </style>
 
-#canvasContainer {
-	margin: 100px auto;
-	width: 500px;
-	height: 375px;
-	border: 10px #333 solid;
-}
-#videoElement {
-	width: 500px;
-	height: 375px;
-	background-color: #666;
-}
 
-#snapImage {
-	width: 500px;
-	height: 375px;
-	background-color: #666;
-}
-</style>
+
 </head>
 
-<body>
+<body style="max-width: 800px; margin: 0 auto;">
 
+    <div class="w3-panel w3-red"> 
+        <h1> Oven On or Off?</h1>
+        <h1 id="ovenOffOrOn"> undefined</h1>
+    </div>
 
-<h3> Oven On or Off?</h3>
-<h2 id="ovenOffOrOn"></h2>
 
 <audio id="onvenOffAudio">
-    <!-- <source src="oven_on.mp3" type="audio/mpeg"> -->
     <source src="static/oven_off.mp3" type="audio/mpeg">
 </audio>
 
 <audio id="onvenOnAudio">
-        <source src="static/oven_on.mp3" type="audio/mpeg">
-        <!-- <source src="oven_off.mp3" type="audio/mpeg"> -->
+    <source src="static/oven_on.mp3" type="audio/mpeg">
 </audio>
 
-<!-- <button type="button" onclick="document.getElementById('onvenOffAudio').play()">
-Oven Off Audio
-</button>
-
-<button type="button" onclick="document.getElementById('onvenOnAudio').play()">
-Oven On Audio
-</button> -->
 
 
-<div id="container">
-	<video autoplay="true" id="videoElement"></video>
+<div class="video-container w3-panel w3-blue">
+	<video class="video-image" autoplay="true" id="videoElement"></video>
 </div>
 
-<div id="canvasContainer">
-    <img id="snapImage" src="">
-    <!-- <canvas style="display:none;"></canvas> -->
+
+
+
+<div class="image-container w3-panel w3-purple">
+    <img class="static-image" id="snapImage" src="">
+     <canvas style="display:none;"></canvas> 
 </div>
 
-<button id="snapButton" onclick="snap_image()">Take Picture</button>
+
+<!-- <button id="snapButton" onclick="snap_image()">Take Picture</button> -->
 
 
 <script>
@@ -110,7 +119,8 @@ const canvas = document.createElement('canvas');
 //     then(handleSuccess).catch(handleError);
 // };
 
-screenshotButton.onclick = video.onclick = function() {
+// screenshotButton.onclick = video.onclick = function() {
+video.onclick = function() {
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
     canvas.getContext('2d').drawImage(video, 0, 0);
