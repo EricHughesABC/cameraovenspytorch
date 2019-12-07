@@ -54,13 +54,13 @@
     </div>
 
 
-<audio id="onvenOffAudio">
+<!-- <audio id="onvenOffAudio">
     <source src="static/oven_off.mp3" type="audio/mpeg">
 </audio>
 
 <audio id="onvenOnAudio">
     <source src="static/oven_on.mp3" type="audio/mpeg">
-</audio>
+</audio> -->
 
 
 
@@ -172,13 +172,17 @@ var sendBase64ToServer = function(name, base64){
             var returned_data = JSON.parse(httpPost.response);
             document.getElementById("ovenOffOrOn").innerHTML = returned_data.prediction;
             if (returned_data.prediction == "on"){
-                console.log("audio on message")
-                document.getElementById('onvenOnAudio').play()
-            } 
-            else if (returned_data.prediction == "off"){
+                console.log("audio on message.")
+                speak("I think the oven is on")
+                // document.getElementById('onvenOnAudio').play()
+            } else if (returned_data.prediction == "off"){
                 console.log("audio off message")
-                document.getElementById('onvenOffAudio').play()
+                speak("I think the oven is off.")
+                // document.getElementById('onvenOffAudio').play()
+            } else {
+                speak("I can't tell, try again.")
             }
+            
             console.log(httpPost.response);
             console.log(returned_data.prediction)
         } else {
@@ -197,7 +201,27 @@ var sendBase64ToServer = function(name, base64){
 };
 
 
+function speak(txt){
+        if ('speechSynthesis' in window) {
+            console.log("speech synthesis works");
+            var text = txt;
+            var msg = new SpeechSynthesisUtterance();
+    //   var voices = window.speechSynthesis.getVoices();
+    //   msg.voice = voices[$('#voices').val()];
+    //   msg.rate = $('#rate').val() / 10;
+    //   msg.pitch = $('#pitch').val();
+            msg.text = text;
 
+            msg.onend = function(e) {
+                console.log("Message Ended");
+            };
+
+            speechSynthesis.speak(msg);
+            
+        } else {
+            console.log("speech synthesis does not work");
+        }
+    }
 
 function transferWorked(rtn){
     console.log("transfer worked");
