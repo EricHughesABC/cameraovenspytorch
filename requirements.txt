@@ -1,6 +1,6 @@
 Flask==1.1.1
 numpy==1.17.3
-Pillow==6.2.2
+Pillow>=7.1.0
 gunicorn
 -f https://download.pytorch.org/whl/nightly/cpu/torch_nightly.html
 torchvision
